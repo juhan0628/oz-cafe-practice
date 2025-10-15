@@ -1,33 +1,18 @@
-import { useState } from "react";
-import "./App.scss";
-import data from "./assets/data";
-import Header from "./components/Header";
-import Menu from "./components/Menu";
-import { Route, Routes } from "react-router-dom";
+import { CartProvider } from "./context/cartContext";
+import { MenuProvider } from "./context/menuContext";
+import MenuList from "./components/MenuList";
 import Cart from "./components/Cart";
 
-function App() {
-  const [menu, setMenu] = useState(data.menu);
-  const [cart, setCart] = useState([]);
-  console.log(cart);
-
+export default function App() {
   return (
-    <div>
-      <Header />
-      <main>
-        <Routes>
-          <Route
-            path="/"
-            element={<Menu menu={menu} cart={cart} setCart={setCart} />}
-          />
-          <Route
-            path="/cart"
-            element={<Cart menu={menu} cart={cart} setCart={setCart} />}
-          />
-        </Routes>
-      </main>
-    </div>
+    <MenuProvider>
+      <CartProvider>
+        <div className="App">
+          <h1>카페 주문 시스템 ☕️</h1>
+          <MenuList />
+          <Cart />
+        </div>
+      </CartProvider>
+    </MenuProvider>
   );
 }
-
-export default App;
